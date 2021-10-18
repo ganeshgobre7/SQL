@@ -56,4 +56,47 @@ values ('Terisa',3000000, '2018-01-03' , 'F','New York',9922003699,'Marketting',
 
 Select * from tbl_Employee_Payroll where Name='Terisa'
 
+Create table tbl_Company
+(
+	CmpId int primary key identity(1,1),
+	CmpName varchar(100) Not Null
+)
 
+Create table tbl_Department
+(
+	DepId int primary key  identity(1,1),
+	DepName varchar(100) Not Null
+)
+
+Create table tbl_Employee
+(
+	EmpId int Primary key identity(1,1),
+	EmpName varchar(100) Not Null,
+	EmpPhoneNo int Not Null,
+	EmpAddress varchar(100),
+	EmpGender char(2),
+	CompanyId int,
+	Foreign key(CompanyId)REFERENCES tbl_Employee(EmpId) 
+)
+
+Create table tbl_Payment
+(
+	PaymentId int Primary Key identity(1,1),
+	EmpId int,
+	BasicPay float,
+	Deduction float,
+	TaxablePay float,
+	IncomeTax float,
+	NetPay float,
+	Foreign key(EmpId)REFERENCES tbl_Employee(EmpId) 
+)
+
+Create table tbl_Emp_Department
+(
+	EmpId int,
+	DepId int,
+	Foreign key(EmpId) REFERENCES tbl_Employee(EmpId),
+	Foreign key(DepId) REFERENCES tbl_Department(DepId)
+)
+
+Select * from tbl_Payment,tbl_Company,tbl_Department,tbl_Employee,tbl_Emp_Department
